@@ -1,0 +1,86 @@
+# ============================================
+#  Visual Studio / MonoGame .gitignore
+# ============================================
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.cache
+*.dbmdl
+*.bak
+*.log
+
+# MonoGame content pipeline cache
+*.mgcontent
+*.xnb
+
+# Build artifacts
+*.exe
+*.dll
+*.pdb
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+
+# Test results
+[Tt]est[Rr]esult*/
+*.trx
+*.Coverage
+*.coveragexml
+
+# Package outputs
+*.nupkg
+*.snupkg
+
+# Auto-generated files
+*.vspscc
+*_i.c
+*_p.c
+*.idb
+*.pdb
+*.ipch
+*.aps
+*.ncb
+*.opendb
+*.opensdf
+*.sdf
+*.tlog
+*.lastcodeanalysissucceeded
+*.FileListAbsolute.txt
+
+# VS 2019/2022 working folders
+.vs/
+.vscode/
+
+# NuGet
+*.nupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+# Build directories
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Others
+_ReSharper*/
+*.DotSettings.user
+.idea/
+*.tmp
+*.swp
+*.DS_Store
+Thumbs.db
+
+# ============================================
+#  End of file
+# ============================================
