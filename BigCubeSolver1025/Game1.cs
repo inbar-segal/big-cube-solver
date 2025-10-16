@@ -10,7 +10,6 @@ namespace BigCubeSolver1025
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        Square square;
         Square[] squares;
         Vector3 viewPos;
         Matrix world;
@@ -18,6 +17,8 @@ namespace BigCubeSolver1025
         Matrix projection;
         Square[] testSquare;
         float padding=0.1f;
+
+        SquaresRotate squaresRotate;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -27,7 +28,6 @@ namespace BigCubeSolver1025
 
         protected override void Initialize()
         {
-            square= new Square();
             testSquare= new Square[5];
             testSquare[0]=new Square();
             testSquare[1]=new Square();
@@ -46,7 +46,11 @@ namespace BigCubeSolver1025
             testSquare[2].Load(GraphicsDevice, new Vector2(-1, 1));
             testSquare[3].Load(GraphicsDevice, new Vector2(-1, -1));
             testSquare[4].Load(GraphicsDevice, new Vector2(1, -1));
+
             squares = new Square[4];
+
+            squaresRotate = new SquaresRotate(2);
+            squaresRotate.Load(GraphicsDevice);
 
             //if((int)Math.Sqrt(squares.Length) % 2 == 0)
             {
@@ -94,7 +98,6 @@ namespace BigCubeSolver1025
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            square.Update(gameTime);
             foreach (Square square in squares)
             {
                 square.Update(gameTime);
@@ -106,6 +109,9 @@ namespace BigCubeSolver1025
             testSquare[2].Update(gameTime);
             testSquare[3].Update(gameTime);
             testSquare[4].Update(gameTime);
+
+
+            squaresRotate.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -124,11 +130,14 @@ namespace BigCubeSolver1025
                 //square.Draw(world, view, projection, gameTime);
             }
 
-            testSquare[0].Draw(world, view, projection, gameTime);
-            testSquare[1].Draw(world, view, projection, gameTime);
-            testSquare[2].Draw(world, view, projection, gameTime);
-            testSquare[3].Draw(world, view, projection, gameTime);
-            testSquare[4].Draw(world, view, projection, gameTime);
+            //testSquare[0].Draw(world, view, projection, gameTime);
+            //testSquare[1].Draw(world, view, projection, gameTime);
+            //testSquare[2].Draw(world, view, projection, gameTime);
+            //testSquare[3].Draw(world, view, projection, gameTime);
+            //testSquare[4].Draw(world, view, projection, gameTime);
+
+
+            squaresRotate.Draw(world,view, projection, gameTime);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
