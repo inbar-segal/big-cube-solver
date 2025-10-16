@@ -8,7 +8,7 @@ namespace BigCubeSolver1025
 {
     internal class Square
     {
-        private Color color= Color.Red;
+        private Color color= Color.Blue;
         VertexBuffer vertexBuffer;
         IndexBuffer indexBuffer;
 
