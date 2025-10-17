@@ -48,12 +48,12 @@ namespace BigCubeSolver1025
 
             Matrix[] facesPosition =
             {
-                Matrix.Identity,
-                Matrix.Identity,
-                Matrix.CreateTranslation(0,0,0.5f)* sideLength,
-                Matrix.Identity,
-                Matrix.CreateTranslation(0,0,-0.5f)* sideLength,
-                Matrix.Identity
+                Matrix.CreateRotationY(ninetyDegrees)* Matrix.CreateTranslation(0.5f* sideLength,0 ,0),
+                Matrix.CreateRotationX(ninetyDegrees)* Matrix.CreateTranslation(0,0.5f* sideLength,0),
+                Matrix.CreateTranslation(0,0,0.5f* sideLength),
+                Matrix.CreateRotationX(ninetyDegrees)* Matrix.CreateTranslation(0,-0.5f* sideLength,0),
+                Matrix.CreateTranslation(0,0,-0.5f* sideLength),
+                Matrix.CreateRotationY(ninetyDegrees)* Matrix.CreateTranslation(-0.5f* sideLength,0 ,0)
             };
 
             for (int i = 0; i < faces.Length; i++)

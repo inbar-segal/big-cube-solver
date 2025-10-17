@@ -65,12 +65,12 @@ namespace BigCubeSolver1025
 
         protected override void Draw(GameTime gameTime)
         {
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack);
             RasterizerState rasterizerState = new RasterizerState() { CullMode = CullMode.None };
             GraphicsDevice.RasterizerState = rasterizerState;
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-
+            //GraphicsDevice.DepthStencilState= DepthStencilState.
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
             float p = 0.1f * 0.3f;
             float d = 0.3f;
             //squaresRotate.Draw(world, view, projection, gameTime);
