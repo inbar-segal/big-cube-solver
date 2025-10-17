@@ -8,29 +8,32 @@ namespace BigCubeSolver1025
 {
     internal class Square
     {
-        private Color color= Color.Red;
+        private Color color;
+        float squareLength;
+
         VertexBuffer vertexBuffer;
         IndexBuffer indexBuffer;
 
         BasicEffect basicEffect;
         GraphicsDevice graphicsDevice;
         VertexPositionColor[] vertices;
+        Matrix UpdateMatrix;
 
-        Matrix rotate;
-        Vector2 place;
-
-        public void Load(GraphicsDevice graphicsDevice, Vector2 place)
+        public Square(Color color, float squareLength)
+        {
+            this.color = color;
+            this.squareLength = squareLength;
+        }
+        public void Load(GraphicsDevice graphicsDevice)
         {
             this.graphicsDevice = graphicsDevice;
             basicEffect = new BasicEffect(graphicsDevice);
-
-            this.place= place;
             vertices = new VertexPositionColor[]
             {
-                new VertexPositionColor(new Vector3(-0.5f, 0, -0.5f), color),
-                new VertexPositionColor(new Vector3(-0.5f, 0, 0.5f), color),
-                new VertexPositionColor(new Vector3(0.5f, 0, -0.5f), color),
-                new VertexPositionColor(new Vector3(0.5f, 0, 0.5f), color)
+                new VertexPositionColor(new Vector3(-0.5f, 0, -0.5f)* squareLength, color),
+                new VertexPositionColor(new Vector3(-0.5f, 0, 0.5f)* squareLength, color),
+                new VertexPositionColor(new Vector3(0.5f, 0, -0.5f)* squareLength, color),
+                new VertexPositionColor(new Vector3(0.5f, 0, 0.5f) * squareLength, color)
             };
 
             short[] indices = new short[]
@@ -39,7 +42,7 @@ namespace BigCubeSolver1025
                 1, 2, 3
                };
 
-            rotate = Matrix.Identity;
+            UpdateMatrix = Matrix.Identity;
 
             vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionColor), vertices.Length, BufferUsage.WriteOnly);
             indexBuffer = new IndexBuffer(graphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
@@ -55,13 +58,13 @@ namespace BigCubeSolver1025
 
         public void Update(GameTime gameTime)
         {
-            rotate *= Matrix.CreateRotationY((float)gameTime.ElapsedGameTime.TotalSeconds);
+            UpdateMatrix *= Matrix.CreateRotationY((float)gameTime.ElapsedGameTime.TotalSeconds);
         }
 
 
         public void Draw(Matrix world, Matrix view, Matrix projection, GameTime gameTime)
         {
-            basicEffect.World = world* Matrix.CreateTranslation(place.X, 0, place.Y)*rotate;
+            basicEffect.World = world * UpdateMatrix;
             basicEffect.View = view;
             basicEffect.Projection = projection;
             basicEffect.VertexColorEnabled = true;
