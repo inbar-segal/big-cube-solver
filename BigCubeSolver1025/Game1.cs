@@ -16,6 +16,7 @@ namespace BigCubeSolver1025
         Matrix projection;
 
         SquaresRotate squaresRotate;
+        SquaresRotate squaresRotate2;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -36,7 +37,11 @@ namespace BigCubeSolver1025
             squaresRotate = new SquaresRotate(5, 0.3f, Color.Green);
             squaresRotate.Load(GraphicsDevice);
 
-            viewPos = new Vector3(0, 9f, 0);
+
+            squaresRotate2 = new SquaresRotate(5, 0.3f, Color.White);
+            squaresRotate2.Load(GraphicsDevice);
+
+            viewPos = new Vector3(1, 1, 1)*2;
             world = Matrix.CreateTranslation(0, 0, 0);
             view = Matrix.CreateLookAt(viewPos, new Vector3(0, 0, 0), new Vector3(1, 0, 0));
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 0.01f, 100f);
@@ -47,6 +52,8 @@ namespace BigCubeSolver1025
                 Exit();
 
             squaresRotate.Update(gameTime);
+
+            squaresRotate2.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -57,7 +64,13 @@ namespace BigCubeSolver1025
             GraphicsDevice.RasterizerState = rasterizerState;
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+
+            float p = 0.1f * 0.3f;
+            float d = 0.3f;
             squaresRotate.Draw(world, view, projection, gameTime);
+            squaresRotate2.Draw(world * Matrix.CreateRotationX(MathHelper.ToRadians(90)) *
+                Matrix.CreateTranslation(0, (float)(2.5 * d + 3 * p), (float)(2.5 * d + 3 * p))
+                , view, projection, gameTime) ;
 
             _spriteBatch.End();
             base.Draw(gameTime);

@@ -25,8 +25,6 @@ namespace BigCubeSolver1025
                     sqauresMatrix[i, j] = new Square(color, squareLength);
                 }
             }
-
-
         }
 
         public void Load(GraphicsDevice graphicsDevice)
@@ -52,8 +50,6 @@ namespace BigCubeSolver1025
             float paddingPlusLength= padding+ squareLength;
 
             startValue = (float)(-0.5 * (matrixSize - 1) * paddingPlusLength);
-            //startValue = (float)(-0.5 * (matrixSize - 1) * (padding + 1));
-
             Vector2 sqaurePos = new Vector2(startValue, startValue);
 
             for (int i = 0; i < matrixSize; i++)
@@ -62,14 +58,13 @@ namespace BigCubeSolver1025
 
                 for (int j = 0; j < matrixSize; j++)
                 {
-                    Matrix squareWorld = world * Matrix.CreateTranslation(sqaurePos.X, 0, sqaurePos.Y);
+                    Matrix squareWorld = Matrix.CreateTranslation(sqaurePos.X, 0, sqaurePos.Y)* world;
+                    //Matrix squareWorld = world * Matrix.CreateTranslation(sqaurePos.X, 0, sqaurePos.Y);
                     sqauresMatrix[i, j].Draw(squareWorld, view, projection, gameTime);
 
                     sqaurePos.X += paddingPlusLength;
-                    //sqaurePos.X += padding + 1;
                 }
                 sqaurePos.Y += paddingPlusLength;
-                //sqaurePos.Y += padding + 1;
             }
 
         }
