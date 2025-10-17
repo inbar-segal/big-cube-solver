@@ -49,7 +49,7 @@ namespace BigCubeSolver1025
 
             squares = new Square[4];
 
-            squaresRotate = new SquaresRotate(2);
+            squaresRotate = new SquaresRotate(4);
             squaresRotate.Load(GraphicsDevice);
 
             //if((int)Math.Sqrt(squares.Length) % 2 == 0)
@@ -59,25 +59,25 @@ namespace BigCubeSolver1025
                //float y = x;
             }
 
-            float x = (float)(-0.5 - 0.5 * padding + (Math.Sqrt(squares.Length) - 1) * 0.5 * (-1 - padding));
-            float y = x;
-            for (int i=0; i< (int)Math.Sqrt(squares.Length); i++)
-            {
-                x = (float)(-0.5 - 0.5 * padding + (Math.Sqrt(squares.Length) - 1) * 0.5 * (-1 - padding));
+            //float x = (float)(-0.5 - 0.5 * padding + (Math.Sqrt(squares.Length) - 1) * 0.5 * (-1 - padding));
+            //float y = x;
+            //for (int i=0; i< (int)Math.Sqrt(squares.Length); i++)
+            //{
+            //    x = (float)(-0.5 - 0.5 * padding + (Math.Sqrt(squares.Length) - 1) * 0.5 * (-1 - padding));
 
-                for (int j = 0; j < (int)Math.Sqrt(squares.Length); j++)
-                {
+            //    for (int j = 0; j < (int)Math.Sqrt(squares.Length); j++)
+            //    {
 
-                    int index = j + i * (int)Math.Sqrt(squares.Length);
-                    squares[index] = new Square();
-                    squares[index].Load(GraphicsDevice, new Vector2(x, y)); 
+            //        int index = j + i * (int)Math.Sqrt(squares.Length);
+            //        squares[index] = new Square();
+            //        squares[index].Load(GraphicsDevice, new Vector2(x, y)); 
 
-                    x += padding + 1;
-                }
-                y -= padding + 1;
-            }
+            //        x += padding + 1;
+            //    }
+            //    y -= padding + 1;
+            //}
 
-            viewPos = new Vector3(0, 6f, 0);
+            viewPos = new Vector3(0, 9f, 0);
             world = Matrix.CreateTranslation(0, 0, 0);
             view = Matrix.CreateLookAt(viewPos, new Vector3(0, 0, 0), new Vector3(1, 0, 0));
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800f / 480f, 0.01f, 100f);
@@ -98,10 +98,10 @@ namespace BigCubeSolver1025
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            foreach (Square square in squares)
-            {
-                square.Update(gameTime);
-            }
+            //foreach (Square square in squares)
+            //{
+            //    square.Update(gameTime);
+            //}
 
 
             testSquare[0].Update(gameTime);

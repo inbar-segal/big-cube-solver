@@ -58,10 +58,7 @@ namespace BigCubeSolver1025
             float padding = 0.1f;
             float startValue = 0;
 
-            if (size % 2 == 1)
-            {
-                startValue = -size / 2 * (padding + 1);
-            }
+            startValue = (float)(-0.5* (size - 1) *(padding + 1));
 
             Vector2 sqaurePos = new Vector2(startValue, startValue);
 
@@ -71,6 +68,7 @@ namespace BigCubeSolver1025
 
                 for (int j = 0; j < size; j++)
                 {
+                    //if(i==0&&j==1)
                     sqaures[i, j].Draw(world * Matrix.CreateTranslation(sqaurePos.X, 0, sqaurePos.Y), view, projection, gameTime);
                     sqaurePos.X += padding + 1;
                 }
