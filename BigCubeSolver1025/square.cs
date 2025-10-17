@@ -28,13 +28,14 @@ namespace BigCubeSolver1025
         {
             this.graphicsDevice = graphicsDevice;
             basicEffect = new BasicEffect(graphicsDevice);
+
             vertices = new VertexPositionColor[]
-            {
-                new VertexPositionColor(new Vector3(-0.5f, 0, -0.5f)* squareLength, color),
-                new VertexPositionColor(new Vector3(-0.5f, 0, 0.5f)* squareLength, color),
-                new VertexPositionColor(new Vector3(0.5f, 0, -0.5f)* squareLength, color),
-                new VertexPositionColor(new Vector3(0.5f, 0, 0.5f) * squareLength, color)
-            };
+{
+                new VertexPositionColor(new Vector3(-0.5f, -0.5f,0 )* squareLength, color),
+                new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0)* squareLength, color),
+                new VertexPositionColor(new Vector3(0.5f, -0.5f,0 )* squareLength, color),
+                new VertexPositionColor(new Vector3(0.5f, 0.5f,0 ) * squareLength, color)
+};
 
             short[] indices = new short[]
                {
