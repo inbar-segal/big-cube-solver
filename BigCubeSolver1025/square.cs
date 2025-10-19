@@ -59,8 +59,8 @@ namespace BigCubeSolver1025
 
         public void Update(GameTime gameTime)
         {
-            UpdateMatrix *= Matrix.CreateRotationY((float)gameTime.ElapsedGameTime.TotalSeconds * 0.3f);
-            UpdateMatrix *= Matrix.CreateRotationX((float)gameTime.ElapsedGameTime.TotalSeconds);
+            //UpdateMatrix *= Matrix.CreateRotationY((float)gameTime.ElapsedGameTime.TotalSeconds * 0.3f);
+            //UpdateMatrix *= Matrix.CreateRotationX((float)gameTime.ElapsedGameTime.TotalSeconds);
             UpdateMatrix *= Matrix.CreateRotationZ((float)gameTime.ElapsedGameTime.TotalSeconds*0.5f);
         }
 
