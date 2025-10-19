@@ -72,7 +72,7 @@ namespace BigCubeSolver1025
             square.Update(gameTime);
             if(Keyboard.GetState().IsKeyDown(Keys.G))
             {
-                square.SetColor(Color.Green);
+                //square.SetColor(Color.Green);
             }
 
 
