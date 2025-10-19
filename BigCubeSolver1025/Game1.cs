@@ -19,6 +19,8 @@ namespace BigCubeSolver1025
 
         Cubie cubie;
 
+        Square square= new Square(Color.White, 1);
+
         SquaresRotate squaresRotate;
         SquaresRotate squaresRotate2;
         public Game1()
@@ -40,6 +42,9 @@ namespace BigCubeSolver1025
 
             squaresRotate = new SquaresRotate(5, 0.3f, Color.Green);
             squaresRotate.Load(GraphicsDevice);
+
+            square.Load(GraphicsDevice);
+
 
             cubie = new Cubie(1);
             cubie.Load(GraphicsDevice);
@@ -64,6 +69,13 @@ namespace BigCubeSolver1025
 
             squaresRotate2.Update(gameTime);
 
+            square.Update(gameTime);
+            if(Keyboard.GetState().IsKeyDown(Keys.G))
+            {
+                square.SetColor(Color.Green);
+            }
+
+
             rubiksCube.Update(gameTime);
             cubie.Update(gameTime);
             base.Update(gameTime);
@@ -86,7 +98,10 @@ namespace BigCubeSolver1025
 
             //cubie.Draw(world*Matrix.CreateTranslation(0,0, (float)gameTime.TotalGameTime.TotalSeconds/10), view, projection, gameTime);
 
-            rubiksCube.Draw2(world, view, projection, gameTime);
+            square.Draw(world, view, projection, gameTime);
+
+
+            //rubiksCube.Draw2(world, view, projection, gameTime);
 
             _spriteBatch.End();
             base.Draw(gameTime);

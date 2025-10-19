@@ -23,6 +23,7 @@ namespace BigCubeSolver1025
         {
             this.color = color;
             this.squareLength = squareLength;
+            UpdateMatrix = Matrix.Identity;
         }
         public void Load(GraphicsDevice graphicsDevice)
         {
@@ -30,20 +31,18 @@ namespace BigCubeSolver1025
             basicEffect = new BasicEffect(graphicsDevice);
 
             vertices = new VertexPositionColor[]
-{
+                {
                 new VertexPositionColor(new Vector3(-0.5f, -0.5f,0 )* squareLength, color),
                 new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0)* squareLength, color),
                 new VertexPositionColor(new Vector3(0.5f, -0.5f,0 )* squareLength, color),
                 new VertexPositionColor(new Vector3(0.5f, 0.5f,0 ) * squareLength, color)
-};
+                };
 
             short[] indices = new short[]
                {
                 0, 1, 2,
                 1, 2, 3
                };
-
-            UpdateMatrix = Matrix.Identity;
 
             vertexBuffer = new VertexBuffer(graphicsDevice, typeof(VertexPositionColor), vertices.Length, BufferUsage.WriteOnly);
             indexBuffer = new IndexBuffer(graphicsDevice, typeof(short), indices.Length, BufferUsage.WriteOnly);
@@ -55,7 +54,11 @@ namespace BigCubeSolver1025
 
         }
 
-
+        void SetColor(Color newColor)
+        {
+            this.color = newColor;
+            Load(graphicsDevice);
+        }
 
         public void Update(GameTime gameTime)
         {
