@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BigCubeSolver1025.Logic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -54,7 +55,7 @@ namespace BigCubeSolver1025
             squaresRotate2 = new SquaresRotate(5, 0.3f, Color.White);
             squaresRotate2.Load(GraphicsDevice);
 
-            viewPos = new Vector3(1, 1, 1)*3;
+            viewPos = new Vector3(1, 1, 1)*-3;
             world = Matrix.CreateTranslation(0, 0, 0);
             view = Matrix.CreateLookAt(viewPos, new Vector3(0, 0, 0), new Vector3(0, 0, 1));
             //view = Matrix.CreateLookAt(viewPos, new Vector3(0, 0, 0), new Vector3(1, 0, 0));
@@ -70,9 +71,10 @@ namespace BigCubeSolver1025
             squaresRotate2.Update(gameTime);
 
             square.Update(gameTime);
-            if(Keyboard.GetState().IsKeyDown(Keys.G))
+            if(Keyboard.GetState().IsKeyDown(Keys.B))
             {
-                //square.SetColor(Color.Green);
+                cubie.GetFace(Utils.Types.Direction.Down).SetColor(Color.Black);
+                square.GetColor();
             }
 
 
@@ -96,9 +98,9 @@ namespace BigCubeSolver1025
             //    Matrix.CreateTranslation(0, (float)(2.5 * d + 3 * p), (float)(2.5 * d + 3 * p))
             //    , view, projection, gameTime) ;
 
-            //cubie.Draw(world*Matrix.CreateTranslation(0,0, (float)gameTime.TotalGameTime.TotalSeconds/10), view, projection, gameTime);
+            cubie.Draw(world * Matrix.CreateTranslation(0, 0, (float)gameTime.TotalGameTime.TotalSeconds / 10), view, projection, gameTime);
 
-            square.Draw(world, view, projection, gameTime);
+            //square.Draw(world, view, projection, gameTime);
 
 
             //rubiksCube.Draw2(world, view, projection, gameTime);

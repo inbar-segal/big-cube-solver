@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace BigCubeSolver1025
+namespace BigCubeSolver1025.Logic
 {
     internal class NxNRubiksCube
     {
@@ -14,7 +14,7 @@ namespace BigCubeSolver1025
         public NxNRubiksCube(int cubeSize)
         {
             this.cubeSize = cubeSize;
-            sideLength = (3+(1-cubeSize)*padding) / (cubeSize*1.5f);
+            sideLength = (3 + (1 - cubeSize) * padding) / (cubeSize * 1.5f);
             //sideLength = 3/cubeSize;
             padding = 0.15f * sideLength;
             pieces = new Cubie[cubeSize, cubeSize, cubeSize];

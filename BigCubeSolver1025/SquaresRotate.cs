@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BigCubeSolver1025.Logic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;

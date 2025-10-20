@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using static BigCubeSolver1025.Utils.Types;
 
-namespace BigCubeSolver1025
+namespace BigCubeSolver1025.Logic
 {
     internal class Cubie
     {
@@ -36,7 +37,25 @@ namespace BigCubeSolver1025
             //{
             //    face.Load(graphicDevice);
             //}
+        }
 
+        public Square GetFace(Direction direction)
+        {
+            Square face;
+
+            switch (direction)
+            {
+                case Direction.Up: face = faces[0]; break;
+                case Direction.Left: face = faces[1]; break;
+                case Direction.Front: face = faces[2]; break;
+                case Direction.Right: face = faces[3]; break;
+                case Direction.Back: face = faces[4]; break;
+                case Direction.Down: face = faces[5]; break;
+                default: return null;
+            }
+
+            return face;
+            //TODO: SEE IF ITs GOOD
         }
 
         public void Update(GameTime gameTime)
@@ -63,21 +82,21 @@ namespace BigCubeSolver1025
                 Matrix.CreateTranslation(0,0,-0.5f* sideLength)
             };
 
-//            Matrix[] facesPosition =
-//{
-//                Matrix.CreateRotationY(ninetyDegrees)* Matrix.CreateTranslation(0.5f* sideLength,0 ,0),
-//                Matrix.CreateRotationX(ninetyDegrees)* Matrix.CreateTranslation(0,0.5f* sideLength,0),
-//                Matrix.CreateTranslation(0,0,0.5f* sideLength),
-//                Matrix.CreateRotationX(ninetyDegrees)* Matrix.CreateTranslation(0,-0.5f* sideLength,0),
-//                Matrix.CreateTranslation(0,0,-0.5f* sideLength),
-//                Matrix.CreateRotationY(ninetyDegrees)* Matrix.CreateTranslation(-0.5f* sideLength,0 ,0)
-//            };
+            //            Matrix[] facesPosition =
+            //{
+            //                Matrix.CreateRotationY(ninetyDegrees)* Matrix.CreateTranslation(0.5f* sideLength,0 ,0),
+            //                Matrix.CreateRotationX(ninetyDegrees)* Matrix.CreateTranslation(0,0.5f* sideLength,0),
+            //                Matrix.CreateTranslation(0,0,0.5f* sideLength),
+            //                Matrix.CreateRotationX(ninetyDegrees)* Matrix.CreateTranslation(0,-0.5f* sideLength,0),
+            //                Matrix.CreateTranslation(0,0,-0.5f* sideLength),
+            //                Matrix.CreateRotationY(ninetyDegrees)* Matrix.CreateTranslation(-0.5f* sideLength,0 ,0)
+            //            };
 
 
             for (int i = 0; i < faces.Length; i++)
             {
                 //if(facesPosition[i]!=Matrix.Identity)
-                faces[i].Draw(facesPosition[i]* world, view, projection, gameTime);
+                faces[i].Draw(facesPosition[i] * world, view, projection, gameTime);
                 //faces[i].Draw(world * facesPosition[i], view, projection, gameTime);
 
             }

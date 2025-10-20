@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 
 
-namespace BigCubeSolver1025
+namespace BigCubeSolver1025.Logic
 {
     internal class Square
     {
@@ -54,9 +54,13 @@ namespace BigCubeSolver1025
 
         }
 
-        void SetColor(Color newColor)
+        public Color GetColor()
         {
-            this.color = newColor;
+            return color;
+        }
+        public void SetColor(Color newColor)
+        {
+            color = newColor;
             Load(graphicsDevice);
         }
 
@@ -64,7 +68,7 @@ namespace BigCubeSolver1025
         {
             //UpdateMatrix *= Matrix.CreateRotationY((float)gameTime.ElapsedGameTime.TotalSeconds * 0.3f);
             //UpdateMatrix *= Matrix.CreateRotationX((float)gameTime.ElapsedGameTime.TotalSeconds);
-            UpdateMatrix *= Matrix.CreateRotationZ((float)gameTime.ElapsedGameTime.TotalSeconds*0.5f);
+            UpdateMatrix *= Matrix.CreateRotationZ((float)gameTime.ElapsedGameTime.TotalSeconds * 0.5f);
         }
 
 
@@ -84,5 +88,7 @@ namespace BigCubeSolver1025
                 graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 2);
             }
         }
+
+
     }
 }
