@@ -25,12 +25,13 @@ namespace BigCubeSolver1025.Logic
 
         public void Load(GraphicsDevice graphicDevice)
         {
-            Color[] colors = {Color.White, Color.Orange,
-                              Color.Green, Color.Red,
-                              Color.Blue, Color.Yellow};
+            //Color[] colors = {Color.White, Color.Orange,
+            //                  Color.Green, Color.Red,
+            //                  Color.Blue, Color.Yellow};
             for (int i = 0; i < faces.Length; i++)
             {
-                faces[i] = new Square(colors[i], sideLength);
+                //faces[i] = new Square(colors[i], sideLength);
+                faces[i] = new Square(Color.Black, sideLength);
                 faces[i].Load(graphicDevice);
             }
             //foreach (Square face in faces)

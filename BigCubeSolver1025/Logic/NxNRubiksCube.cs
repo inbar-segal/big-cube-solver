@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using static BigCubeSolver1025.Utils.Types;
 
 namespace BigCubeSolver1025.Logic
 {
@@ -45,6 +46,14 @@ namespace BigCubeSolver1025.Logic
                 piece.Update(gameTime);
             }
         }
+
+        private Vector3 GetPieceByDirectionAndPos(Direction direction, int width, int height)
+        {
+
+            //TODO Finish Develop
+            //returns a piece by the face it's on and the coordinates on the face
+            return new Vector3(0,0,0);
+        }
         public void Draw(Matrix world, Matrix view, Matrix projection, GameTime gameTime)
         {
             for (int i = 0; i < cubeSize; i++)
@@ -53,21 +62,11 @@ namespace BigCubeSolver1025.Logic
                 {
                     for (int k = 0; k < cubeSize; k++)
                     {
-                        //Matrix position = Matrix.CreateTranslation(
-                        //    -i * (1 + padding) + padding,
-                        //    -j * (1 + padding) + padding,
-                        //    -k * (1 + padding) + padding);
-
                         Matrix position = Matrix.CreateTranslation(
                             -i * (1 + padding),
                             -j * (1 + padding),
                             -k * (1 + padding));
-                        if (/*(i==0&&j==0&&k==0)||*/
-                            /*  (i == 1 && j == 0 && k == )0*/
-                            /*&&*/true)
-                        {
-                            pieces[i, j, k].Draw(position * world/** position*/, view, projection, gameTime);
-                        }
+                            pieces[i, j, k].Draw(position * world, view, projection, gameTime);
                     }
                 }
             }
@@ -90,7 +89,6 @@ namespace BigCubeSolver1025.Logic
                     for (int k = 0; k < cubeSize; k++)
                     {
                         Matrix squareWorld = Matrix.CreateTranslation(cubePos.X, cubePos.Y, cubePos.Z) * world;
-                        //Matrix squareWorld = world * Matrix.CreateTranslation(sqaurePos.X, 0, sqaurePos.Y);
                         pieces[i, j, k].Draw(squareWorld, view, projection, gameTime);
 
                         cubePos.X += paddingPlusLength;
