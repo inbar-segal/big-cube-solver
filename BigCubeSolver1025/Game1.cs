@@ -79,7 +79,7 @@ namespace BigCubeSolver1025
             }
             if(Keyboard.GetState().IsKeyDown(Keys.U)) 
             {
-                rubiksCube.StartRotation(Direction.Up, 2, true);
+                rubiksCube.StartRotation(Direction.Up, 4, true);
             }
 
             rubiksCube.Update(gameTime);

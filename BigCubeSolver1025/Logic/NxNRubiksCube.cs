@@ -15,7 +15,7 @@ namespace BigCubeSolver1025.Logic
         Matrix[,,] rotationMatrices;
         Rotation rotation;
         float rotationAngle;
-        
+
         public NxNRubiksCube(int cubeSize)
         {
             this.cubeSize = cubeSize;
@@ -23,8 +23,8 @@ namespace BigCubeSolver1025.Logic
             //sideLength = 3/cubeSize;
             padding = 0.15f * sideLength;
             pieces = new Cubie[cubeSize, cubeSize, cubeSize];
-            rotationMatrices= new Matrix[cubeSize, cubeSize, cubeSize];
-            rotation= new Rotation(Direction.None, 0, false);
+            rotationMatrices = new Matrix[cubeSize, cubeSize, cubeSize];
+            rotation = new Rotation(Direction.None, 0, false);
             for (int i = 0; i < cubeSize; i++)
             {
                 for (int j = 0; j < cubeSize; j++)
@@ -99,15 +99,39 @@ namespace BigCubeSolver1025.Logic
                     return;
                 }
                 rotationAngle += (float)gameTime.ElapsedGameTime.TotalSeconds;
-                for(int i=0; i<cubeSize; i++)
+                if (rotation.isWidemove)
                 {
-                    for (int j = 0; j < cubeSize; j++)
+                    for (int i = 0; i < rotation.layerNum; i++)
                     {
-                        Vector3 pos= GetPieceIndecies(rotation.rotatingSide, i, j, rotation.layerNum);
-                        if(rotation.rotatingSide== Direction.Up)
-                        rotationMatrices[(int)pos.X, (int)pos.Y, (int)pos.Z] = Matrix.CreateRotationZ(-rotationAngle);
-                    //TODO complete
+                        UpdateSliceMatrix(i);
                     }
+                }
+                else
+                {
+                    UpdateSliceMatrix(rotation.layerNum);
+                }
+                //for(int i=0; i<cubeSize; i++)
+                //{
+                //    for (int j = 0; j < cubeSize; j++)
+                //    {
+                //        Vector3 pos= GetPieceIndecies(rotation.rotatingSide, i, j, rotation.layerNum);
+                //        if(rotation.rotatingSide== Direction.Up)
+                //        rotationMatrices[(int)pos.X, (int)pos.Y, (int)pos.Z] = GetRotationMatrix(rotation, rotationAngle);
+                //    //TODO complete
+                //    }
+                //}
+            }
+        }
+        public void UpdateSliceMatrix(int layerNum)
+        {
+            for (int i = 0; i < cubeSize; i++)
+            {
+                for (int j = 0; j < cubeSize; j++)
+                {
+                    Vector3 pos = GetPieceIndecies(rotation.rotatingSide, i, j, layerNum);
+                    if (rotation.rotatingSide == Direction.Up)
+                        rotationMatrices[(int)pos.X, (int)pos.Y, (int)pos.Z] = GetRotationMatrix(rotation, rotationAngle);
+                    //TODO complete
                 }
             }
         }
@@ -122,19 +146,34 @@ namespace BigCubeSolver1025.Logic
                 rotation.isWidemove = isWidemove;
             }
         }
-        private Vector3 GetPieceIndecies(Direction direction, int width, int height, int layerNum=0)
+        private Vector3 GetPieceIndecies(Direction direction, int width, int height, int layerNum = 0)
         {
             switch (direction)
             {
                 case Direction.Up: return new Vector3(width, height, layerNum);
                 case Direction.Front: return new Vector3(layerNum, height, width);
                 case Direction.Right: return new Vector3(height, layerNum, width);
-                case Direction.Back: return new Vector3(cubeSize - 1-layerNum, height, width);
-                case Direction.Left: return new Vector3(height, cubeSize - 1-layerNum, width);
-                case Direction.Down: return new Vector3(height, width, cubeSize - 1-layerNum);
+                case Direction.Back: return new Vector3(cubeSize - 1 - layerNum, height, width);
+                case Direction.Left: return new Vector3(height, cubeSize - 1 - layerNum, width);
+                case Direction.Down: return new Vector3(height, width, cubeSize - 1 - layerNum);
             }
 
             return new Vector3(0, 0, 0);
+        }
+        private Matrix GetRotationMatrix(Rotation rotation, float angle)
+        {
+            Matrix matrix = Matrix.Identity;
+            switch (rotation.rotatingSide)
+            {
+                case Direction.Up: matrix = Matrix.CreateRotationZ(-angle); break;
+                case Direction.Front: break;
+                case Direction.Right: break;
+                case Direction.Back: break;
+                case Direction.Left: break;
+                case Direction.Down: matrix = Matrix.CreateRotationZ(angle); break;
+            }
+
+            return matrix;
         }
         public void Draw(Matrix world, Matrix view, Matrix projection, GameTime gameTime)
         {
