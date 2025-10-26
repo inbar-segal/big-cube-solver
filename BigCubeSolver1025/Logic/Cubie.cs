@@ -8,7 +8,7 @@ namespace BigCubeSolver1025.Logic
     internal class Cubie
     {
 
-        readonly float Ninty_Degrees = MathHelper.ToRadians((float)90.0);
+        public static readonly float Ninty_Degrees = MathHelper.ToRadians((float)90.0);
         Square[] faces;
         float sideLength;
         public Cubie(float sideLength)

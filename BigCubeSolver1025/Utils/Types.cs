@@ -13,7 +13,8 @@ namespace BigCubeSolver1025.Utils
             Front,
             Right,
             Back,
-            Down
+            Down,
+            None
         }
     }
 }

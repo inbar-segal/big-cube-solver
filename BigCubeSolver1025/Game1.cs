@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Reflection;
+using static BigCubeSolver1025.Utils.Types;
 
 namespace BigCubeSolver1025
 {
@@ -76,7 +77,10 @@ namespace BigCubeSolver1025
                 cubie.GetFace(Utils.Types.Direction.Down).SetColor(Color.Black);
                 square.GetColor();
             }
-
+            if(Keyboard.GetState().IsKeyDown(Keys.U)) 
+            {
+                rubiksCube.StartRotation(Direction.Up, 2, true);
+            }
 
             rubiksCube.Update(gameTime);
             cubie.Update(gameTime);
