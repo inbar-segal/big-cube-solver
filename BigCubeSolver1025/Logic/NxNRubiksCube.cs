@@ -101,7 +101,7 @@ namespace BigCubeSolver1025.Logic
                 rotationAngle += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (rotation.isWidemove)
                 {
-                    for (int i = 0; i < rotation.layerNum; i++)
+                    for (int i = 0; i < rotation.layerNum + 1; i++)
                     {
                         UpdateSliceMatrix(i);
                     }
@@ -129,7 +129,7 @@ namespace BigCubeSolver1025.Logic
                 for (int j = 0; j < cubeSize; j++)
                 {
                     Vector3 pos = GetPieceIndecies(rotation.rotatingSide, i, j, layerNum);
-                    if (rotation.rotatingSide == Direction.Up)
+                    //if (rotation.rotatingSide == Direction.Up)
                         rotationMatrices[(int)pos.X, (int)pos.Y, (int)pos.Z] = GetRotationMatrix(rotation, rotationAngle);
                     //TODO complete
                 }
@@ -160,16 +160,16 @@ namespace BigCubeSolver1025.Logic
 
             return new Vector3(0, 0, 0);
         }
-        private Matrix GetRotationMatrix(Rotation rotation, float angle)
+        private static Matrix GetRotationMatrix(Rotation rotation, float angle)
         {
             Matrix matrix = Matrix.Identity;
             switch (rotation.rotatingSide)
             {
                 case Direction.Up: matrix = Matrix.CreateRotationZ(-angle); break;
-                case Direction.Front: break;
-                case Direction.Right: break;
-                case Direction.Back: break;
-                case Direction.Left: break;
+                case Direction.Front: matrix= Matrix.CreateRotationX(-angle); break;
+                case Direction.Right: matrix = Matrix.CreateRotationY(-angle); break;
+                case Direction.Back: matrix = Matrix.CreateRotationX(angle); break;
+                case Direction.Left: matrix = Matrix.CreateRotationY(angle); break;
                 case Direction.Down: matrix = Matrix.CreateRotationZ(angle); break;
             }
 

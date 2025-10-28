@@ -1,4 +1,5 @@
 ﻿using BigCubeSolver1025.Logic;
+using BigCubeSolver1025.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -17,11 +18,11 @@ namespace BigCubeSolver1025
         Matrix view;
         Matrix projection;
 
-        NxNRubiksCube rubiksCube= new NxNRubiksCube(5);
+        NxNRubiksCube rubiksCube = new NxNRubiksCube(5);
 
         Cubie cubie;
 
-        Square square= new Square(Color.White, 1);
+        Square square = new Square(Color.White, 1);
 
         SquaresRotate squaresRotate;
         SquaresRotate squaresRotate2;
@@ -56,7 +57,7 @@ namespace BigCubeSolver1025
             squaresRotate2 = new SquaresRotate(5, 0.3f, Color.White);
             squaresRotate2.Load(GraphicsDevice);
 
-            viewPos = new Vector3(1, 1, 1)*3;
+            viewPos = new Vector3(1, 1, 1) * 3;
             world = Matrix.CreateTranslation(0, 0, 0);
             //view = Matrix.CreateLookAt(viewPos, new Vector3(0, 0, 0), new Vector3(0, 0, 1));
             view = Matrix.CreateLookAt(viewPos, new Vector3(0, 0, 0), new Vector3(0, 0, 1));
@@ -67,23 +68,44 @@ namespace BigCubeSolver1025
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            squaresRotate.Update(gameTime);
-
-            squaresRotate2.Update(gameTime);
-
-            square.Update(gameTime);
-            if(Keyboard.GetState().IsKeyDown(Keys.B))
+            Keys[] rotationKeys = { Keys.U, Keys.L, Keys.F, Keys.R, Keys.B, Keys.D };
+            Direction direction = Direction.None;
+            int layerNum = -1;
+            for (int i = 0; i < rotationKeys.Length; i++)
             {
-                cubie.GetFace(Utils.Types.Direction.Down).SetColor(Color.Black);
-                square.GetColor();
+                if (Keyboard.GetState().IsKeyDown(rotationKeys[i]))
+                {
+                    switch (i)
+                    {
+                        case 0: direction = Direction.Up; break;
+                        case 1: direction = Direction.Left; break;
+                        case 2: direction = Direction.Front; break;
+                        case 3: direction = Direction.Right; break;
+                        case 4: direction = Direction.Back; break;
+                        case 5: direction = Direction.Down; break;
+                        default: direction = Direction.None; break;
+                    }
+                }
             }
-            if(Keyboard.GetState().IsKeyDown(Keys.U)) 
+            Keys[] numberKeys = { Keys.D1, Keys.D2, Keys.D3 };
+
+            for (int i = 0; i < numberKeys.Length; i++)
             {
-                rubiksCube.StartRotation(Direction.Up, 4, true);
+                if (Keyboard.GetState().IsKeyDown(numberKeys[i]))
+                {
+                    layerNum = i;
+                }
+            }
+            if(layerNum==-1)
+                layerNum= 0;
+
+            if (direction != Direction.None)
+            {
+                bool isCtrlDown = Keyboard.GetState().IsKeyDown(Keys.LeftControl);
+                rubiksCube.StartRotation(direction, layerNum, isCtrlDown);
             }
 
             rubiksCube.Update(gameTime);
-            cubie.Update(gameTime);
             base.Update(gameTime);
         }
 
