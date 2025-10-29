@@ -23,21 +23,23 @@ namespace BigCubeSolver1025.Logic
 
         }
 
-        public void Load(GraphicsDevice graphicDevice)
+
+
+        public void Load(GraphicsDevice graphicDevice, bool isColored)
         {
-            //Color[] colors = {Color.White, Color.Orange,
-            //                  Color.Green, Color.Red,
-            //                  Color.Blue, Color.Yellow};
+            Color[] colors = {Color.White, Color.Orange,
+                              Color.Green, Color.Red,
+                              Color.Blue, Color.Yellow};
+            //Todo remove iscolored
             for (int i = 0; i < faces.Length; i++)
             {
+                Color color = isColored ? colors[i] : Color.Black;
+                faces[i] = new Square(color, sideLength);
                 //faces[i] = new Square(colors[i], sideLength);
-                faces[i] = new Square(Color.Black, sideLength);
+                //faces[i] = new Square(Color.Black, sideLength);
                 faces[i].Load(graphicDevice);
             }
-            //foreach (Square face in faces)
-            //{
-            //    face.Load(graphicDevice);
-            //}
+
         }
 
         public Square GetFace(Direction direction)
@@ -58,7 +60,35 @@ namespace BigCubeSolver1025.Logic
             return face;
             //TODO: SEE IF ITs GOOD
         }
-
+        public void UpdateColorOrder(Direction direction)
+        {
+            //Square[] faces2= new Square[6];
+            switch (direction)
+            {
+                case Direction.Up: faces = new Square[] { faces[0], faces[2], faces[3], faces[4], faces[1], faces[5] }; break;
+                case Direction.Left: faces = new Square[] { faces[4], faces[1], faces[0], faces[3], faces[5], faces[2] }; break;
+                case Direction.Front: faces = new Square[] { faces[1], faces[5], faces[2], faces[0], faces[4], faces[3] }; break;
+                case Direction.Right:
+                {
+                    for (int i = 0; i < 3; i++)
+                        UpdateColorOrder(Direction.Left);
+                    break;
+                }
+                case Direction.Back:
+                {
+                    for (int i = 0; i < 3; i++)
+                        UpdateColorOrder(Direction.Front);
+                    break;
+                }
+                case Direction.Down:
+                {
+                    for (int i = 0; i < 3; i++)
+                        UpdateColorOrder(Direction.Up);
+                    break;
+                }
+                default: break;
+            }
+        }
         public void Update(GameTime gameTime)
         {
             foreach (Square face in faces)

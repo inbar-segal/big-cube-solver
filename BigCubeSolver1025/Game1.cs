@@ -17,7 +17,7 @@ namespace BigCubeSolver1025
         Matrix world;
         Matrix view;
         Matrix projection;
-
+        bool test=false;
         NxNRubiksCube rubiksCube = new NxNRubiksCube(5);
 
         Cubie cubie;
@@ -50,7 +50,7 @@ namespace BigCubeSolver1025
 
 
             cubie = new Cubie(1);
-            cubie.Load(GraphicsDevice);
+            cubie.Load(GraphicsDevice, true);
 
             rubiksCube.Load(GraphicsDevice);
 
@@ -71,10 +71,12 @@ namespace BigCubeSolver1025
             Keys[] rotationKeys = { Keys.U, Keys.L, Keys.F, Keys.R, Keys.B, Keys.D };
             Direction direction = Direction.None;
             int layerNum = -1;
+            Keys key= Keys.None;
             for (int i = 0; i < rotationKeys.Length; i++)
             {
                 if (Keyboard.GetState().IsKeyDown(rotationKeys[i]))
                 {
+                    key= rotationKeys[i];
                     switch (i)
                     {
                         case 0: direction = Direction.Up; break;
@@ -96,16 +98,28 @@ namespace BigCubeSolver1025
                     layerNum = i;
                 }
             }
-            if(layerNum==-1)
-                layerNum= 0;
+            if (layerNum == -1)
+                layerNum = 0;
 
             if (direction != Direction.None)
             {
                 bool isCtrlDown = Keyboard.GetState().IsKeyDown(Keys.LeftControl);
-                rubiksCube.StartRotation(direction, layerNum, isCtrlDown);
+                int turnLength = Keyboard.GetState().IsKeyDown(Keys.LeftShift)?-1:1;
+                rubiksCube.StartRotation(new Rotation(direction, layerNum, isCtrlDown, turnLength));
             }
 
             rubiksCube.Update(gameTime);
+            if (Keyboard.GetState().IsKeyDown(key)&&!test)
+            {
+           // cubie.UpdateColorOrder(direction);
+                test= true;
+                key = Keys.None;
+            }
+
+            else if(!Keyboard.GetState().IsKeyDown(key))
+            {
+                test = false;
+            }
             base.Update(gameTime);
         }
 
@@ -117,14 +131,12 @@ namespace BigCubeSolver1025
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //GraphicsDevice.DepthStencilState= DepthStencilState.
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-            float p = 0.1f * 0.3f;
-            float d = 0.3f;
             //squaresRotate.Draw(world, view, projection, gameTime);
             //squaresRotate2.Draw(world * Matrix.CreateRotationX(MathHelper.ToRadians(90)) *
             //    Matrix.CreateTranslation(0, (float)(2.5 * d + 3 * p), (float)(2.5 * d + 3 * p))
             //    , view, projection, gameTime) ;
 
-            //cubie.Draw(world * Matrix.CreateTranslation(0, 0, (float)gameTime.TotalGameTime.TotalSeconds / 10), view, projection, gameTime);
+            //cubie.Draw(world /** Matrix.CreateRotationZ((float)gameTime.TotalGameTime.TotalSeconds / 10)*/, view, projection, gameTime);
 
             //square.Draw(world, view, projection, gameTime);
 

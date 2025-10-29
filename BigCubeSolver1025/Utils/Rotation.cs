@@ -10,12 +10,14 @@ namespace BigCubeSolver1025.Utils
         public Direction rotatingSide;
         public int layerNum;
         public bool isWidemove;
+        public int turnLength;// TODO rename
 
-        public Rotation(Direction rotatingSide, int layerNum, bool isWidemove)
+        public Rotation(Direction rotatingSide, int layerNum, bool isWidemove, int turnlength)
         {
             this.rotatingSide = rotatingSide;
             this.layerNum = layerNum;
             this.isWidemove = isWidemove;
+            this.turnLength = turnlength;
         }
     }
 }
