@@ -93,7 +93,6 @@ namespace BigCubeSolver1025.Logic
                             }
                         }
                     }
-                    //UpdateCubeStateSlice(rotation.layerNum);
                     if (rotation.isWidemove)
                     {
                         for (int i = 0; i < rotation.layerNum + 1; i++)
@@ -246,9 +245,6 @@ namespace BigCubeSolver1025.Logic
                     for (int k = 0; k < cubeSize; k++)
                     {
                         Matrix squareWorld = Matrix.CreateTranslation(cubePos.X, cubePos.Y, cubePos.Z) * world;
-
-                        //Vector3 v = GetPieceIndecies(Direction.Front, 1, 0);
-                        //Vector3 v1 = GetPieceIndecies(Direction.Back, 0, 0);
                         pieces[k, j, i].Draw(squareWorld * rotationMatrices[k, j, i], view, projection, gameTime);
                         //TODO see if its good
 
